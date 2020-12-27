@@ -2,6 +2,8 @@
 
 Spirits is a plugin meant for roleplay wherein dead players become semi-transparent ghosts.
 
+Note: Plugin requires ProtocolLib
+
 Note: Requires two teams, one for humans and one for spirits, the following commands will set that up.
 
     /team add Humans
