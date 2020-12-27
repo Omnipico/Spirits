@@ -6,3 +6,8 @@ lives:
 non_canon_lives: 5
 alive_team: Humans
 dead_team: Spirits
+hosts:
+  - ZOMBIE
+  - ZOMBIE_VILLAGER
+  - HUSK
+  - DROWNED

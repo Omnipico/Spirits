@@ -14,11 +14,14 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
@@ -42,6 +45,15 @@ public class EventListener implements Listener {
         this.config = config;
         this.plugin = plugin;
         graveyard = new Graveyard(config, plugin);
+    }
+
+    private boolean isValidHost(EntityType entityType) {
+        List<String> validHosts = this.config.getStringList("hosts");
+        List<EntityType> validEntityTypes = new ArrayList<>();
+        for (String validHost : validHosts) {
+            validEntityTypes.add(EntityType.valueOf(validHost));
+        }
+        return validEntityTypes.contains(entityType);
     }
 
     private PacketContainer createTeamJoinPacket(List<String> players, boolean alive) {
@@ -161,6 +173,16 @@ public class EventListener implements Listener {
                     player.addPotionEffect(invisibility);
                 }
             }, 1L);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onEntityDeath(EntityDeathEvent event) {
+        LivingEntity entity = event.getEntity();
+        Player killer = entity.getKiller();
+        if (killer != null && isValidHost(entity.getType()) && !graveyard.isAlive(killer)) {
+            graveyard.setAlive(killer, true);
+            killer.spigot().sendMessage(new ComponentBuilder().append("You are now alive!").color(ChatColor.GREEN).create());
         }
     }
 
