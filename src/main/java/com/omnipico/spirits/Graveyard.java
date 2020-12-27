@@ -3,6 +3,8 @@ package com.omnipico.spirits;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
@@ -48,13 +50,15 @@ public class Graveyard {
             spirits.remove(player.getUniqueId().toString());
             this.config.set("spirits", spirits);
             plugin.saveConfig();
-            setLives(player, 0);
+            setLives(player, this.config.getInt("non_canon_lives", 5));
+            PotionEffect noInvisibility = new PotionEffect(PotionEffectType.INVISIBILITY, 0, 2, true, false, false);
+            player.addPotionEffect(noInvisibility);
         } else if (!alive && isAlive(player)) {
             List<String> spirits = this.config.getStringList("spirits");
             spirits.add(player.getUniqueId().toString());
             this.config.set("spirits", spirits);
             plugin.saveConfig();
-            setLives(player, this.config.getInt("non_canon_lives", 5));
+            setLives(player, 0);
         }
     }
 

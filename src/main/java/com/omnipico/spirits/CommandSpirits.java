@@ -188,7 +188,7 @@ public class CommandSpirits implements CommandExecutor, TabCompleter {
                 sender.spigot().sendMessage(helpMessage);
             } else {
                 sender.spigot().sendMessage(
-                        new ComponentBuilder().append("Invalid subcommand, try /spirits help>").color(ChatColor.RED).create()
+                        new ComponentBuilder().append("Invalid subcommand, try /spirits help").color(ChatColor.RED).create()
                 );
             }
         } else {
