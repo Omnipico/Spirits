@@ -1,5 +1,5 @@
 name: Spirits
-version: 0.0.7
+version: 0.1.0
 author: Allymonies
 main: com.omnipico.spirits.Spirits
 api-version: 1.16
@@ -18,15 +18,24 @@ permissions:
   spirits.setlives:
     default: op
     description: Allows usage of /spirits setlives
-  spirits.revive:
+  spirits.revive.*:
     default: op
     description: Allows usage of /spirits revive
-  spirits.kill:
+    children:
+      spirits.revive: true
+      spirits.revive.others: true
+  spirits.kill.*:
     default: op
     description: Allows usage of /spirits kill
-  spirits.hardcore:
+    children:
+      spirits.kill: true
+      spirits.kill.others: true
+  spirits.hardcore.*:
       default: op
       description: Allows usage of /spirits kill
+    children:
+      spirits.hardcore: true
+      spirits.hardcore.others: true
   spirits.*:
     default: op
     description: Allows access to every Spirits command.

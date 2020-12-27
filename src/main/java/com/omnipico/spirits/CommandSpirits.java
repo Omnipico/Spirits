@@ -200,7 +200,15 @@ public class CommandSpirits implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        //List<String> subCommands = new ArrayList<String>();
+        List<String> subCommands = new ArrayList<String>();
+        subCommands.add("setlives");
+        subCommands.add("revive");
+        subCommands.add("kill");
+        subCommands.add("hardcore");
+        subCommands.add("help");
+        if (args.length == 1) {
+            return subCommands;
+        }
         return null;
     }
 }
