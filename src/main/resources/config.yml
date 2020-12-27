@@ -1,0 +1,8 @@
+#Configuration
+spirits:
+  - 00000000-0000-0000-0000-000000000000
+lives:
+  00000000-0000-0000-0000-000000000000: 5
+non_canon_lives: 5
+alive_team: Humans
+dead_team: Spirits
