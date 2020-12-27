@@ -102,20 +102,31 @@ public class EventListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         //TODO allow for canon deaths
-        boolean died = graveyard.useLife(player);
-        if (died) {
-            //Join them to the ghost team for everyone.
-            ArrayList<String> playersGhosted = new ArrayList<>();
-            playersGhosted.add(player.getName());
-            PacketContainer ghostedPacket = createTeamJoinPacket(playersGhosted, false);
-            for (Player playerTo : Bukkit.getOnlinePlayers()) {
-                try {
-                    if (!player.equals(playerTo)) {
-                        manager.sendServerPacket(playerTo, ghostedPacket);
+        if (graveyard.isAlive(player)) {
+            boolean died = graveyard.useLife(player);
+            if (died) {
+                player.spigot().sendMessage(new ComponentBuilder().append("You lost your last life, you are now a Spirit!").color(ChatColor.GREEN).create());
+                //Join them to the ghost team for everyone.
+                ArrayList<String> playersGhosted = new ArrayList<>();
+                playersGhosted.add(player.getName());
+                PacketContainer ghostedPacket = createTeamJoinPacket(playersGhosted, false);
+                for (Player playerTo : Bukkit.getOnlinePlayers()) {
+                    try {
+                        if (!player.equals(playerTo)) {
+                            manager.sendServerPacket(playerTo, ghostedPacket);
+                        }
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
                     }
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
                 }
+            } else {
+                int lives = graveyard.getLives(player);
+                if (lives != 1) {
+                    player.spigot().sendMessage(new ComponentBuilder().append("You are now down to " + String.valueOf(lives) + " lives.").color(ChatColor.GREEN).create());
+                } else {
+                    player.spigot().sendMessage(new ComponentBuilder().append("You are now down to " + String.valueOf(lives) + " life.").color(ChatColor.GREEN).create());
+                }
+
             }
         }
     }

@@ -3,6 +3,7 @@ package com.omnipico.spirits;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -48,7 +49,7 @@ public class CommandSpirits implements CommandExecutor, TabCompleter {
                             try {
                                 graveyard.setLives(targetPlayer, Integer.parseInt(args[2]));
                                 sender.spigot().sendMessage(
-                                        new ComponentBuilder().append(targetPlayer.getDisplayName()).append(" now has " + args[2] + " lives.").color(ChatColor.GREEN).create()
+                                        new ComponentBuilder().append(TextComponent.fromLegacyText(targetPlayer.getDisplayName())).append(" now has " + args[2] + " lives.").color(ChatColor.GREEN).create()
                                 );
                             } catch (NumberFormatException e) {
                                 sender.spigot().sendMessage(
@@ -96,7 +97,7 @@ public class CommandSpirits implements CommandExecutor, TabCompleter {
                     if (targetPlayer != null) {
                         graveyard.setAlive(targetPlayer, true);
                         sender.spigot().sendMessage(
-                                new ComponentBuilder().append(targetPlayer.getDisplayName()).append(" is now alive.").color(ChatColor.GREEN).create()
+                                new ComponentBuilder().append(TextComponent.fromLegacyText(targetPlayer.getDisplayName())).append(" is now alive.").color(ChatColor.GREEN).create()
                         );
                     } else {
                         sender.spigot().sendMessage(
@@ -134,7 +135,7 @@ public class CommandSpirits implements CommandExecutor, TabCompleter {
                     if (targetPlayer != null) {
                         graveyard.setAlive(targetPlayer, false);
                         sender.spigot().sendMessage(
-                                new ComponentBuilder().append(targetPlayer.getDisplayName()).append(" is now dead.").color(ChatColor.GREEN).create()
+                                new ComponentBuilder().append(TextComponent.fromLegacyText(targetPlayer.getDisplayName())).append(" is now dead.").color(ChatColor.GREEN).create()
                         );
                     } else {
                         sender.spigot().sendMessage(
@@ -172,7 +173,7 @@ public class CommandSpirits implements CommandExecutor, TabCompleter {
                     if (targetPlayer != null) {
                         graveyard.setLives(targetPlayer, 1);
                         sender.spigot().sendMessage(
-                                new ComponentBuilder().append(targetPlayer.getDisplayName()).append(" is now in hardcore mode.").color(ChatColor.GREEN).create()
+                                new ComponentBuilder().append(TextComponent.fromLegacyText(targetPlayer.getDisplayName())).append(" is now in hardcore mode.").color(ChatColor.GREEN).create()
                         );
                     } else {
                         sender.spigot().sendMessage(
