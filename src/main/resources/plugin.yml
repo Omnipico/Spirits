@@ -33,9 +33,9 @@ permissions:
   spirits.hardcore.*:
       default: op
       description: Allows usage of /spirits kill
-    children:
-      spirits.hardcore: true
-      spirits.hardcore.others: true
+      children:
+        spirits.hardcore: true
+        spirits.hardcore.others: true
   spirits.*:
     default: op
     description: Allows access to every Spirits command.
