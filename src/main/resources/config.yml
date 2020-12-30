@@ -4,6 +4,11 @@ spirits:
 lives:
   00000000-0000-0000-0000-000000000000: 5
 non_canon_lives: 5
+use_reincarnation_location: true
+reincarnate_at_spawn: true
+reincarnation_x: 0
+reincarnation_y: 0
+reincarnation_z: 0
 alive_team: Humans
 dead_team: Spirits
 hosts:
